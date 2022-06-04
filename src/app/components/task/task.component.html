@@ -1,0 +1,181 @@
+
+               <div class="midde_cont">
+                  <div class="container-fluid">
+                     <!--row-->
+                     <div class="row column1">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                           <div class="white_shd full margin_bottom_30">
+                              <div class="full price_table padding_infor_info">
+                                 <div class="row">
+                                  <ng-container *ngIf="action==''">
+                                    <div class="col-lg-12">
+                                        <div class="card-body">
+                                            <form class="form-horizontal" (ngSubmit)="submitForm()" [formGroup]="formData" *ngIf="getData?.length > 0">
+                                               <div class="form-group row">
+                                                  <label class="col-md-12 col-form-label" for="title">Please tell us about yourself *</label>
+                                                  <div class="col-md-12">
+                                                     <textarea class="form-control" 
+                                                     formControlName="about"
+                                                   ></textarea>
+                                                   <div *ngIf="submitted1 && f1['about'].errors" class="invalid-feedback">
+                                                     <div *ngIf="f1['about'].errors['required']">About is required</div>
+                                                 </div>
+                                                  </div>
+                                               </div>
+                                               <div class="form-group row">
+                                                  <label class="col-md-12 col-form-label" for="url">Please select the languages you know *
+                                                </label>
+                                                  <div class="col-md-12">
+                                                    <div>
+                                                     <ng-container *ngFor="let data of langArr">
+                                                        <input type="checkbox" class="form-control" 
+                                                        [value]="data.name" (change)="onCheckboxChange($event)"
+                                                        > {{data.name}}
+
+                                                     </ng-container>
+                                                    </div>
+                                                     <!-- <input type="checkbox" value="React" class="form-control" 
+                                                     formControlName="languages"
+                                                     > React
+                                                     <input type="checkbox" value="C#" class="form-control" 
+                                                     formControlName="languages"
+                                                     > C#
+                                                     <input type="checkbox" value="Other" class="form-control" 
+                                                     formControlName="languages" 
+                                                     > Other -->
+                                                     
+                                                     <!-- <div *ngIf="submitted1 && f['languages'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['languages'].errors['required']">languages is required</div>
+                                                    </div> -->
+                                                  </div>
+                                               </div>
+                                               <button type="submit" class="btn btn-dark pull-right"
+                            >Review my answers ></button>
+                                            </form>
+                                              
+                                            <a href="javascript:void(0)" class="pull-left" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Add New Question</a>
+                                         </div>
+                                     
+                                    </div>
+                                </ng-container>
+<!--view Data-->
+                                <ng-container *ngIf="action">
+
+                                    <!-- <p><strong>Please tell us about yourself</strong></p><br>
+                                    <p>{{userDataGet.about}}</p><br>
+                                    <p><strong>Please select the languages you know</strong></p><br>
+                                    <p></p> -->
+
+                                    <!-- <div class="tab-pane fade" id="project_worked" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                        <p>{{userDataGet.about}}.
+                                        </p>
+                                     </div>
+                                     <div class="tab-pane fade" id="profile_section" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                        <p>{{userDataGet.langArray}}
+                                        </p>
+                                     </div> -->
+
+
+                                     <div class="msg_list_main">
+                                        <ul class="">
+                                           <li>
+                                             
+                                              <span>
+                                              <span class="name_user">Please tell us about yourself</span>
+                                              <span class="msg_user">{{userDataGet.about}}</span>
+                                            
+                                              </span>
+                                           </li>
+                                           <li>
+                                              
+                                              <span>
+                                              <span class="name_user">Please select the languages you know</span>
+                                              <span class="msg_user">{{userDataGet.langArray}}</span>
+                                              
+                                              </span>
+                                           </li>
+                                        </ul>
+                                     </div>
+                                   
+                                    <a routerLink="/form/builder" class="pull-left"><i class="fa fa-plus"></i> Back to Forms Builder
+                                    </a>
+                                </ng-container>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-md-2"></div>
+                        </div>
+                        <!-- end row -->
+                     </div>
+                  
+                  </div>
+              
+               </div>
+           
+    <!--model-->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="vertical-alignment-helper">
+            <div class="modal-dialog  modal-md vertical-align-center" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add a New Questions</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                   
+                   
+                    <form  (submit)="onSubmit()" [formGroup]="DataForm">
+                        <div class="contactform">
+                        <div class="form-group">
+
+                            <select class="form-control form_ctrl" formControlName="languages" required>
+                                     
+                                <option value="" selected>Choose</option>
+                                <option>Angular</option>
+                                <option>React</option>
+                                <option>C#</option>
+                                <option>Other</option>
+                            </select>
+                           
+                            <div *ngIf="f.languages.errors" class="invalid-feedback text-left">
+                                <div class="text-white" *ngIf="f.languages.errors.required">Languages is required</div>
+                            </div>
+                         
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form_ctrl"  formControlName="question" required placeholder="Type question here">
+                                    <div *ngIf="f.question.errors" class="invalid-feedback">
+                                        <div class="text-white" *ngIf="f.question.errors.required">Question is required</div>
+                                    </div>  
+                                </div>      
+                       
+                                <div formArrayName="options">
+                                    <div *ngFor="let child of DataForm.get('options')['controls']; let i = index">
+                                      <div [formGroupName]="i">
+                                       
+                                                <div class="form-group">
+                                                   
+                                                   <input formControlName="answer"  class="form-control" placeholder="Add Answer Option">
+                                                   <a href="javascript:void(0)" class="remove_atr" (click)="onRemoveRow(i)"><i class="fa fa-trash-o"></i> </a>
+                                                </div>
+                                            </div>
+                                         
+                                </div>
+                              </div>
+                              
+                       
+                            <div>
+                                <a href="javascript:void(0)" (click)="onAddRow()"><i class="fa fa-plus"></i> Add another answer</a><br>
+                                <button class="btn btn-dark">Submit</button>
+                            </div>
+                        </div>
+                     </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
